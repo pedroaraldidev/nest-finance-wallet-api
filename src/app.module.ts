@@ -3,16 +3,14 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
+import { AuthModule } from './auth/auth.module';
 import typeormConfig from './config/typeorm.config';
-
-const validDbTypes = ['mysql', 'postgres', 'sqlite'] as const;
-
-console.log(typeormConfig)
 
 @Module({
   imports: [
     TypeOrmModule.forRoot(typeormConfig),
-    UserModule
+    UserModule,
+    AuthModule
   ],
   controllers: [AppController],
   providers: [AppService],

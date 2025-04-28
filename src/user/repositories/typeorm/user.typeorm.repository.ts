@@ -5,7 +5,7 @@ import { IUserRepository } from '../user.repository.interface';
 import { User } from '../../entities/user.entity';
 
 @Injectable()
-export class TypeOrmUserRepository implements IUserRepository {
+export class UserTypeOrmRepository implements IUserRepository {
   constructor(
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
@@ -18,6 +18,10 @@ export class TypeOrmUserRepository implements IUserRepository {
 
   async findById(id: number): Promise<User> {
     return this.userRepository.findOneBy({ id });
+  }
+
+  async findByEmail(email: string): Promise<User | null> {
+    return this.userRepository.findOneBy({ email });
   }
 
   async findAll(): Promise<User[]> {

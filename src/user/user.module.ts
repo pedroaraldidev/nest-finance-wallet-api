@@ -5,7 +5,7 @@ import { UserController } from './user.controller';
 import { User } from './entities/user.entity';
 
 import { IUserRepository } from './repositories/user.repository.interface';
-import { TypeOrmUserRepository } from './repositories/typeorm/user.typeorm.repository';
+import { UserTypeOrmRepository } from './repositories/typeorm/user.typeorm.repository';
 
 import { CreateUserUseCase } from './use-cases/create-user.usecase';
 import { UpdateUserUseCase } from './use-cases/update-user.usecase';
@@ -21,7 +21,7 @@ import { DeleteUserUseCase } from './use-cases/delete-user.usecase';
   providers: [
     {
       provide: IUserRepository,
-      useClass: TypeOrmUserRepository,
+      useClass: UserTypeOrmRepository,
     },
     UserService,
     CreateUserUseCase,
@@ -29,6 +29,12 @@ import { DeleteUserUseCase } from './use-cases/delete-user.usecase';
     FindAllUsersUseCase,
     FindUserUseCase,
     DeleteUserUseCase
+  ],
+  exports: [
+    {
+      provide: IUserRepository,
+      useClass: UserTypeOrmRepository,
+    },
   ],
 })
 export class UserModule {}
