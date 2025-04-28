@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable, BadRequestException } from '@nestjs/common';
 import { IWalletRepository } from '../repositories/wallet.repository.interface';
 
 @Injectable()
@@ -11,7 +11,7 @@ export class GetBalanceUseCase {
   async execute(userId: number): Promise<number> {
     const wallet = await this.walletRepository.findByUserId(userId);
     if (!wallet) {
-      throw new Error('Wallet not found');
+      throw new BadRequestException('Wallet not found');
     }
     return wallet.balance;
   }

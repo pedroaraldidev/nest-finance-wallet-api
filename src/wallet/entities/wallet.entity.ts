@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import { Transaction } from '../../transaction/entities/transaction.entity';
 
 @Entity()
 export class Wallet {
@@ -11,9 +12,16 @@ export class Wallet {
   @Column({ unique: true })
   userId: number;
 
+  @OneToMany(() => Transaction, transaction => transaction.senderWallet)
+  sentTransactions: Transaction[];
+
+  @OneToMany(() => Transaction, transaction => transaction.receiverWallet)
+  receivedTransactions: Transaction[];
+  
   @Column({ default: () => 'CURRENT_TIMESTAMP' })
   createdAt: Date;
 
   @Column({ default: () => 'CURRENT_TIMESTAMP', onUpdate: 'CURRENT_TIMESTAMP' })
   updatedAt: Date;
+  
 }

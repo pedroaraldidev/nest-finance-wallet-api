@@ -7,6 +7,7 @@ import { WalletTypeOrmRepository } from './repositories/typeorm/wallet.typeorm.r
 import { CreateWalletUseCase } from './use-cases/create-wallet.usecase';
 import { GetBalanceUseCase } from './use-cases/get-balance.usecase';
 import { IWalletRepository } from './repositories/wallet.repository.interface';
+import { ValidateBalanceUseCase } from './use-cases/validate-balance.usecase';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Wallet])],
@@ -15,6 +16,7 @@ import { IWalletRepository } from './repositories/wallet.repository.interface';
     WalletService,
     CreateWalletUseCase,
     GetBalanceUseCase,
+    ValidateBalanceUseCase,
     {
       provide: IWalletRepository,
       useClass: WalletTypeOrmRepository,

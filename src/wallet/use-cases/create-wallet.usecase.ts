@@ -13,7 +13,7 @@ export class CreateWalletUseCase {
   async execute(dto: CreateWalletDto): Promise<Wallet> {
     return this.walletRepository.create({
       userId: dto.userId,
-      balance: dto.initialBalance || 0,
+      balance: dto.initialBalance || 1000,
     });
   }
 }
