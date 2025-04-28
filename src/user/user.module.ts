@@ -13,10 +13,12 @@ import { FindAllUsersUseCase } from './use-cases/find-all-users.usecase';
 import { FindUserUseCase } from './use-cases/find-user.usecase';
 import { DeleteUserUseCase } from './use-cases/delete-user.usecase';
 
+import { WalletModule } from '../wallet/wallet.module';
+
 
 
 @Module({
-  imports: [TypeOrmModule.forFeature([User])], 
+  imports: [TypeOrmModule.forFeature([User]), WalletModule], 
   controllers: [UserController],
   providers: [
     {
