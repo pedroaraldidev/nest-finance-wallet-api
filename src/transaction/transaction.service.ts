@@ -13,10 +13,10 @@ export class TransactionService {
 
   async createTransaction(dto: CreateTransactionDto) {
     const transaction = await this.createTransactionUseCase.execute(dto);
-    await this.transactionQueue.add('process', {
+    const job = await this.transactionQueue.add('process', {
       transactionId: transaction.id,
     });
-
-    return transaction;
+    const completedJob = await job.finished();
+    return completedJob;
   }
 }
