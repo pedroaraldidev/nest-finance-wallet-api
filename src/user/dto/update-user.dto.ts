@@ -23,10 +23,6 @@ export class UpdateUserDto {
 
   @IsString()
   @IsOptional()
-  password?: string;
-
-  @IsString()
-  @IsOptional()
   status?: string;
 
   @IsDateString()
