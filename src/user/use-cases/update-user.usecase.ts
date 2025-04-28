@@ -19,7 +19,6 @@ export class UpdateUserUseCase {
     user.document = updateUserDto.document || user.document;
     user.document_type = user_document_type as UserDocumentType;
     user.birth_date = updateUserDto.birth_date || user.birth_date;
-    user.password = updateUserDto.password || user.password;
     user.status = user_status as UserStatus;
     return this.userRepository.update(id, user);
   }
