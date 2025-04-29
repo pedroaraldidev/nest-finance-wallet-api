@@ -3,6 +3,7 @@ import { AppModule } from './app.module';
 import { ValidationPipe, ClassSerializerInterceptor } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { UserService } from './user/user.service';
+import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -18,6 +19,17 @@ async function bootstrap() {
     password: '12345',
     user_type: 'admin'
   });
+
+  const config = new DocumentBuilder()
+    .setTitle('Finance Wallet API')
+    .setDescription('API de autenticação e gestão de carteiras')
+    .setVersion('1.0')
+    .addBearerAuth() 
+    .build();
+
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('api', app, document);
+  
 
   app.useGlobalPipes(
     new ValidationPipe({
