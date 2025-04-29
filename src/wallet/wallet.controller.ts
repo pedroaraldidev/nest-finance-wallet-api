@@ -1,5 +1,5 @@
 import { Controller, Get } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth } from '@nestjs/swagger';
 import { WalletService } from './wallet.service';
 import { User } from '../auth/decorators/user.decorator';
 
@@ -9,7 +9,8 @@ export class WalletController {
   constructor(private readonly walletService: WalletService) {}
 
   @Get('/balance')
-  @ApiOperation({ summary: 'Get wallet balance' }) 
+  @ApiOperation({ summary: 'Get wallet balance' })
+  @ApiBearerAuth()
   @ApiResponse({
     status: 200,
     description: 'Wallet balance recovered successfully',

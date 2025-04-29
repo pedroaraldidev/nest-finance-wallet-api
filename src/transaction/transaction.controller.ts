@@ -1,5 +1,5 @@
 import { Controller, Post, Body } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiResponse, ApiBody } from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiResponse, ApiBody, ApiBearerAuth } from '@nestjs/swagger';
 import { TransactionService } from './transaction.service';
 import { CreateTransactionDto } from './dto/create-transaction.dto';
 import { User } from '../auth/decorators/user.decorator';
@@ -11,6 +11,7 @@ export class TransactionController {
 
   @Post()
   @ApiOperation({ summary: 'Create a transaction' })
+  @ApiBearerAuth()
   @ApiBody({
     description: 'Request body to create a new transaction',
     schema: {
