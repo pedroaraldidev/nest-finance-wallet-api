@@ -8,9 +8,5 @@ export class CreateTransactionDto {
 
   @IsNumber()
   @IsNotEmpty()
-  senderWalletId: number;
-
-  @IsNumber()
-  @IsNotEmpty()
   receiverWalletId: number;
 }

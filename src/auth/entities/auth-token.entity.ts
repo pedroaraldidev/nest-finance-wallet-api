@@ -13,4 +13,5 @@ export class AuthToken {
 
   @Column()
   user_id: number;
+
 }

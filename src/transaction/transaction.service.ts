@@ -11,8 +11,8 @@ export class TransactionService {
     @InjectQueue('transactions') private transactionQueue: Queue,
   ) {}
 
-  async createTransaction(dto: CreateTransactionDto) {
-    const transaction = await this.createTransactionUseCase.execute(dto);
+  async createTransaction(dto: CreateTransactionDto, userId: number) {
+    const transaction = await this.createTransactionUseCase.execute(dto, userId);
     const job = await this.transactionQueue.add('process', {
       transactionId: transaction.id,
     });

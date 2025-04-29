@@ -21,7 +21,7 @@ export class LoginUseCase {
       throw new UnauthorizedException('Credenciais inválidas');
     }
 
-    const payload = { email: user.email, sub: user.id };
+    const payload = { email: user.email, sub: user.id, role: user.user_type ?? 'user'};
     const token = this.jwtService.sign(payload);
 
     await this.tokenRepository.create({

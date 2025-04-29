@@ -11,6 +11,8 @@ import { AuthController } from './auth.controller';
 import { UserModule } from '../user/user.module';
 import { LoginUseCase } from './use-cases/login.usecase';
 
+import { JwtAuthGuard } from './guards/jwt-auth.guard';
+
 @Module({
   imports: [
     TypeOrmModule.forFeature([AuthToken]),
@@ -28,6 +30,8 @@ import { LoginUseCase } from './use-cases/login.usecase';
       provide: ITokenRepository,
       useClass: TokenTypeOrmRepository,
     },
+    JwtAuthGuard
   ],
+  exports: [JwtModule, JwtAuthGuard],
 })
 export class AuthModule {}
