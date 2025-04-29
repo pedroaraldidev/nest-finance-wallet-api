@@ -1,13 +1,30 @@
-import { Controller, Post, Body, Get, Param } from '@nestjs/common';
+import { Controller, Get } from '@nestjs/common';
+import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { WalletService } from './wallet.service';
-import { CreateWalletDto } from './dto/create-wallet.dto';
+import { User } from '../auth/decorators/user.decorator';
 
+@ApiTags('Wallet') 
 @Controller('wallet')
 export class WalletController {
   constructor(private readonly walletService: WalletService) {}
 
-  @Get(':userId/balance')
-  async getBalance(@Param('userId') userId: number) {
-    return { balance: this.walletService.getBalance(userId) };
+  @Get('/balance')
+  @ApiOperation({ summary: 'Get wallet balance' }) 
+  @ApiResponse({
+    status: 200,
+    description: 'Wallet balance recovered successfully',
+    schema: {
+      type: 'object',
+      properties: {
+        balance: { type: 'number', example: 100.50 },
+      },
+    },
+  })
+  @ApiResponse({
+    status: 401,
+    description: 'Token not found!',
+  })
+  async getBalance(@User('id') userId: number) {
+    return { balance: await this.walletService.getBalance(userId) };
   }
 }
