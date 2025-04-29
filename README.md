@@ -21,9 +21,17 @@ git clone https://github.com/pedroaraldidev/nest-finance-wallet-api.git
 cd nest-finance-wallet-api
 ```
 
-### Passo 2: Criar a imagem Docker
+### Passo 2: Instalar as dependências
 
-Para criar a imagem da aplicação e levantar o ambiente completo, rode o comando:
+Antes de construir a imagem Docker, instale as dependências do projeto:
+
+```bash
+npm install
+```
+
+### Passo 3: Criar a imagem Docker
+
+Agora, para criar a imagem da aplicação e levantar o ambiente completo, rode o comando:
 
 ```bash
 docker-compose up --build
@@ -34,14 +42,14 @@ Esse comando vai:
 1. Construir as imagens Docker necessárias.
 2. Rodar os containers do Redis e da aplicação NestJS.
 
-### Passo 3: Acessando a aplicação
+### Passo 4: Acessando a aplicação
 
 Após o Docker Compose ter subido os containers, a aplicação estará acessível na porta `3000` (ou qualquer outra configurada). Você pode acessar a API via:
 
 - **Local**: [http://localhost:3000](http://localhost:3000)
 - **Swagger UI**: [http://localhost:3000/api](http://localhost:3000/api)
 
-### Passo 4: Parando os containers
+### Passo 5: Parando os containers
 
 Quando você terminar, pode parar os containers com o seguinte comando:
 
