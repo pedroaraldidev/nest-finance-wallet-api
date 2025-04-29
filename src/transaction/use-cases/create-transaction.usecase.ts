@@ -1,7 +1,7 @@
-import { Injectable, Inject } from '@nestjs/common';
+import { Injectable, Inject, BadRequestException } from '@nestjs/common';
 import { ITransactionRepository } from '../repositories/transaction.repository.interface';
 import { CreateTransactionDto } from '../dto/create-transaction.dto';
-import { ValidateBalanceUseCase } from '../../wallet/use-cases/validate-balance.usecase'; 
+import { ValidateBalanceUseCase } from '../../wallet/use-cases/validate-balance.usecase';
 import { GetWalletUseCase } from 'src/wallet/use-cases/get-wallet.useCase';
 import { Wallet } from 'src/wallet/entities/wallet.entity';
 
@@ -11,14 +11,19 @@ export class CreateTransactionUseCase {
     @Inject(ITransactionRepository)
     private readonly transactionRepository: ITransactionRepository,
     private readonly validateBalanceUseCase: ValidateBalanceUseCase,
-    private readonly getWalletUseCase: GetWalletUseCase
+    private readonly getWalletUseCase: GetWalletUseCase,
   ) {}
 
   async execute(dto: CreateTransactionDto, userId: number) {
-    const wallet:Wallet = await this.getWalletUseCase.execute(userId)
+    await this.validateBalanceUseCase.execute(userId, dto.amount);
 
-    await this.validateBalanceUseCase.execute(wallet.id, dto.amount);
-    
-    return this.transactionRepository.create({...dto, senderWalletId: wallet.id});
+    const wallet: Wallet = await this.getWalletUseCase.execute(userId);
+    if (wallet.id === dto.receiverWalletId) {
+        throw new BadRequestException('You cannot transfer to yourself!');
+    }
+    return this.transactionRepository.create({
+      ...dto,
+      senderWalletId: wallet.id,
+    });
   }
 }

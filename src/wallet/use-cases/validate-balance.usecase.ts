@@ -8,8 +8,8 @@ export class ValidateBalanceUseCase {
     private readonly walletRepository: IWalletRepository,
   ) {}
 
-  async execute(walletId: number, amount: number): Promise<boolean> {
-    const wallet = await this.walletRepository.findByUserId(walletId);
+  async execute(userId: number, amount: number): Promise<boolean> {
+    const wallet = await this.walletRepository.findByUserId(userId);
 
     if (!wallet) {
         throw new BadRequestException('Wallet not found!');
