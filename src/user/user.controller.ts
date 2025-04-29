@@ -53,7 +53,7 @@ export class UserController {
   @Roles('admin')
   @Get()
   @ApiOperation({ summary: 'Get all users (Admin only)' })
-  @ApiBearerAuth() // Você também pode colocar aqui se quiser que essa rota tenha o cadeado
+  @ApiBearerAuth()
   findAll() {
     return this.userService.findAll();
   }
