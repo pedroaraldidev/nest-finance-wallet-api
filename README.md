@@ -17,8 +17,8 @@ Antes de rodar o projeto, você precisa ter o Docker e o Docker Compose instalad
 Clone o repositório da aplicação para sua máquina local:
 
 ```bash
-git clone https://github.com/pedroaraldidev/finance-wallet-api.git
-cd finance-wallet-api
+git clone https://github.com/pedroaraldidev/nest-finance-wallet-api.git
+cd nest-finance-wallet-api
 ```
 
 ### Passo 2: Criar a imagem Docker
