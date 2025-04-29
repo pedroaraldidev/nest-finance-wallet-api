@@ -12,6 +12,11 @@ export enum UserStatus {
   Inactive = 'inactive',
 }
 
+export enum UserType {
+  User = 'user',
+  Admin = 'admin',
+}
+
 @Entity('users')
 export class User {
   @PrimaryGeneratedColumn()
@@ -44,6 +49,12 @@ export class User {
     default: UserStatus.Active,
   })
   status: UserStatus;
+
+  @Column({
+    type: 'text',
+    default: UserType.User
+  })
+  user_type: UserType;
 
   @Column({ type: 'date', default: () => 'CURRENT_TIMESTAMP' })
   createdAt: Date;

@@ -6,13 +6,8 @@ import { CreateWalletDto } from './dto/create-wallet.dto';
 export class WalletController {
   constructor(private readonly walletService: WalletService) {}
 
-  @Post()
-  async create(@Body() dto: CreateWalletDto) {
-    return this.walletService.createWallet(dto);
-  }
-
   @Get(':userId/balance')
   async getBalance(@Param('userId') userId: number) {
-    return this.walletService.getBalance(userId);
+    return { balance: this.walletService.getBalance(userId) };
   }
 }
